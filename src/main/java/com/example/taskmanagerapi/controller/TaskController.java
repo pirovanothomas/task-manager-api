@@ -2,9 +2,12 @@ package com.example.taskmanagerapi.controller;
 
 import com.example.taskmanagerapi.entity.Task;
 import com.example.taskmanagerapi.service.TaskService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,8 +38,18 @@ public class TaskController {
     }
 
     @PostMapping
-    public Task createTask(@RequestBody Task task) {
-        return taskService.createTask(task);
+    public ResponseEntity<Task> createTask(@Valid @RequestBody Task task) {
+        Task createdTask = taskService.createTask(task);
+
+        URI location = ServletUriComponentsBuilder
+                        .fromCurrentRequest()
+                        .path("/{id}")
+                        .buildAndExpand(createdTask.getId())
+                        .toUri();
+
+        return ResponseEntity
+                .created(location)
+                .body(createdTask);
     }
 
     @PutMapping("/{id}")
