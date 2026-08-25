@@ -12,8 +12,12 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotBlank
-    @Size(min = 3, max = 100)
+    @NotBlank(message = "Le titre est obligatoire")
+    @Size(
+            min = 3,
+            max = 100,
+            message = "Le titre doit contenir entre 3 et 100 caractères"
+    )
     private String title;
     private boolean completed;
 
