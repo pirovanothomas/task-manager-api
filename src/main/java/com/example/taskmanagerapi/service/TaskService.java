@@ -3,6 +3,8 @@ package com.example.taskmanagerapi.service;
 import com.example.taskmanagerapi.entity.Task;
 import com.example.taskmanagerapi.repository.TaskRepository;
 import org.springframework.stereotype.Service;
+import com.example.taskmanagerapi.dto.TaskRequest;
+import com.example.taskmanagerapi.dto.TaskResponse;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,29 +17,66 @@ public class TaskService {
         this.taskRepository = taskRepository;
     }
 
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
+    public List<TaskResponse> getAllTasks() {
+
+        return taskRepository.findAll()
+                .stream()
+                .map(task -> new TaskResponse(
+                        task.getId(),
+                        task.getTitle(),
+                        task.isCompleted()
+                ))
+                .toList();
     }
 
-    public Task createTask(Task task) {
-        return taskRepository.save(task);
+    public TaskResponse createTask(TaskRequest request) {
+
+        Task task = new Task();
+
+        task.setTitle(request.getTitle());
+        task.setCompleted(request.isCompleted());
+
+        Task savedTask = taskRepository.save(task);
+
+        return new TaskResponse(
+                savedTask.getId(),
+                savedTask.getTitle(),
+                savedTask.isCompleted()
+        );
     }
 
-    public Optional<Task> getTaskById(Long id) {
-        return taskRepository.findById(id);
+    public Optional<TaskResponse> getTaskById(Long id) {
+
+        return taskRepository.findById(id)
+                .map(task -> new TaskResponse(
+                        task.getId(),
+                        task.getTitle(),
+                        task.isCompleted()
+                ));
     }
 
-    public Optional<Task> updateTask(Long id, Task task) {
+    public Optional<TaskResponse> updateTask(Long id, TaskRequest request) {
+
         Optional<Task> existingTask = taskRepository.findById(id);
 
         if (existingTask.isPresent()) {
+
             Task taskToUpdate = existingTask.get();
 
-            taskToUpdate.setTitle(task.getTitle());
-            taskToUpdate.setCompleted(task.isCompleted());
+            taskToUpdate.setTitle(request.getTitle());
+            taskToUpdate.setCompleted(request.isCompleted());
 
-            return Optional.of(taskRepository.save(taskToUpdate));
+            Task savedTask = taskRepository.save(taskToUpdate);
+
+            return Optional.of(
+                    new TaskResponse(
+                            savedTask.getId(),
+                            savedTask.getTitle(),
+                            savedTask.isCompleted()
+                    )
+            );
         }
+
         return Optional.empty();
     }
 
