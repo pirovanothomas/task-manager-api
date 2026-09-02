@@ -13,8 +13,16 @@ public class GlobalExceptionHandler {
             MethodArgumentNotValidException ex) {
 
         String message = ex.getBindingResult()
-                .getFieldError()
-                .getDefaultMessage();
+                .getFieldErrors()
+                .stream()
+                .filter(error -> "NotBlank".equals(error.getCode()))
+                .map(error -> error.getDefaultMessage())
+                .findFirst()
+                .orElse(
+                        ex.getBindingResult()
+                                .getFieldError()
+                                .getDefaultMessage()
+                );
 
         ErrorResponse errorResponse = new ErrorResponse(
                 400,

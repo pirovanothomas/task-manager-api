@@ -1,13 +1,11 @@
 package com.example.taskmanagerapi.controller;
 
-import com.example.taskmanagerapi.entity.Task;
 import com.example.taskmanagerapi.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.example.taskmanagerapi.dto.TaskRequest;
-import com.example.taskmanagerapi.dto.TaskResponse;
 import com.example.taskmanagerapi.dto.TaskResponse;
 
 import java.net.URI;

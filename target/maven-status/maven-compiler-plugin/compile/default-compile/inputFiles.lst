@@ -1,1 +1,9 @@
+C:\Users\pirov\IdeaProjects\task-manager-api\src\main\java\com\example\taskmanagerapi\controller\TaskController.java
+C:\Users\pirov\IdeaProjects\task-manager-api\src\main\java\com\example\taskmanagerapi\dto\TaskRequest.java
+C:\Users\pirov\IdeaProjects\task-manager-api\src\main\java\com\example\taskmanagerapi\dto\TaskResponse.java
+C:\Users\pirov\IdeaProjects\task-manager-api\src\main\java\com\example\taskmanagerapi\entity\Task.java
+C:\Users\pirov\IdeaProjects\task-manager-api\src\main\java\com\example\taskmanagerapi\exception\ErrorResponse.java
+C:\Users\pirov\IdeaProjects\task-manager-api\src\main\java\com\example\taskmanagerapi\exception\GlobalExceptionHandler.java
+C:\Users\pirov\IdeaProjects\task-manager-api\src\main\java\com\example\taskmanagerapi\repository\TaskRepository.java
+C:\Users\pirov\IdeaProjects\task-manager-api\src\main\java\com\example\taskmanagerapi\service\TaskService.java
 C:\Users\pirov\IdeaProjects\task-manager-api\src\main\java\com\example\taskmanagerapi\TaskManagerApiApplication.java
