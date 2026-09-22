@@ -113,22 +113,6 @@ class TaskControllerTest {
     }
 
     @Test
-    void createTask_shouldReturn400_whenTitleIsInvalid() throws Exception {
-
-        mockMvc.perform(post("/api/tasks")
-                        .contentType("application/json")
-                        .content("""
-                            {
-                                "title": "AB",
-                                "completed": false
-                            }
-                            """))
-                .andExpect(status().isBadRequest())
-                .andExpect(jsonPath("$.message")
-                        .value("Le titre doit contenir entre 3 et 100 caractères"));
-    }
-
-    @Test
     void createTask_shouldReturn400_whenTitleIsBlank() throws Exception {
 
         mockMvc.perform(post("/api/tasks")
@@ -155,6 +139,27 @@ class TaskControllerTest {
                                 "completed": false
                             }
                             """))
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.error")
+                        .value("Validation failed"))
+                .andExpect(jsonPath("$.message")
+                        .value("Le titre doit contenir entre 3 et 100 caractères"));
+    }
+
+    @Test
+    void createTask_shouldReturn400_whenTitleIsTooLong() throws Exception {
+
+        String title = "A".repeat(101);
+
+        mockMvc.perform(post("/api/tasks")
+                        .contentType("application/json")
+                        .content("""
+                        {
+                            "title": "%s",
+                            "completed": false
+                        }
+                        """.formatted(title)))
                 .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value(400))
                 .andExpect(jsonPath("$.error")
@@ -219,7 +224,12 @@ class TaskControllerTest {
                                 "completed": false
                             }
                             """))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.status").value(400))
+                .andExpect(jsonPath("$.error")
+                        .value("Validation failed"))
+                .andExpect(jsonPath("$.message")
+                        .value("Le titre doit contenir entre 3 et 100 caractères"));
     }
 
     @Test

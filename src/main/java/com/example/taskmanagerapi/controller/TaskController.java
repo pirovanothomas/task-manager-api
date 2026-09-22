@@ -1,12 +1,12 @@
 package com.example.taskmanagerapi.controller;
 
+import com.example.taskmanagerapi.dto.TaskRequest;
+import com.example.taskmanagerapi.dto.TaskResponse;
 import com.example.taskmanagerapi.service.TaskService;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import com.example.taskmanagerapi.dto.TaskRequest;
-import com.example.taskmanagerapi.dto.TaskResponse;
 
 import java.net.URI;
 import java.util.List;
@@ -28,15 +28,16 @@ public class TaskController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TaskResponse> getTaskId(@PathVariable Long id) {
+    public ResponseEntity<TaskResponse> getTaskById(
+            @PathVariable Long id) {
 
         Optional<TaskResponse> task = taskService.getTaskById(id);
 
         if (task.isPresent()) {
             return ResponseEntity.ok(task.get());
-        } else {
-            return ResponseEntity.notFound().build();
         }
+
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping

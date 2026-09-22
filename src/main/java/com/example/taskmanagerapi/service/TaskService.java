@@ -1,10 +1,10 @@
 package com.example.taskmanagerapi.service;
 
+import com.example.taskmanagerapi.dto.TaskRequest;
+import com.example.taskmanagerapi.dto.TaskResponse;
 import com.example.taskmanagerapi.entity.Task;
 import com.example.taskmanagerapi.repository.TaskRepository;
 import org.springframework.stereotype.Service;
-import com.example.taskmanagerapi.dto.TaskRequest;
-import com.example.taskmanagerapi.dto.TaskResponse;
 
 import java.util.List;
 import java.util.Optional;

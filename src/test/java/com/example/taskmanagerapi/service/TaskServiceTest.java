@@ -19,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 import com.example.taskmanagerapi.dto.TaskRequest;
-import com.example.taskmanagerapi.dto.TaskResponse;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.never;
