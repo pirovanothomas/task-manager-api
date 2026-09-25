@@ -43,16 +43,11 @@ jobs:
           java-version: '26'
           cache: maven
 
-      - name: Make Maven Wrapper executable
-        run: chmod +x mvnw
-
       - name: Check PostgreSQL
         run: |
           echo "DB_URL=$DB_URL"
           echo "DB_USERNAME=$DB_USERNAME"
-          docker ps
-          docker run --rm --network host postgres:18 \
-            pg_isready -h localhost -p 5432 -U postgres -d task_manager
+          pg_isready -h localhost -p 5432 -U postgres -d task_manager
 
       - name: Build and test
         run: ./mvnw clean verify
