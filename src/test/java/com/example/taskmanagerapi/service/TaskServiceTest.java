@@ -1,28 +1,22 @@
 package com.example.taskmanagerapi.service;
 
-import com.example.taskmanagerapi.repository.TaskRepository;
-import com.example.taskmanagerapi.entity.Task;
+import com.example.taskmanagerapi.dto.TaskRequest;
 import com.example.taskmanagerapi.dto.TaskResponse;
+import com.example.taskmanagerapi.entity.Task;
+import com.example.taskmanagerapi.repository.TaskRepository;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.junit.jupiter.api.extension.ExtendWith;
-
-import com.example.taskmanagerapi.dto.TaskRequest;
-
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.never;
-import org.mockito.ArgumentCaptor;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TaskServiceTest {
@@ -59,11 +53,11 @@ class TaskServiceTest {
 
         assertEquals(1L, result.get(0).getId());
         assertEquals("Apprendre Spring Boot", result.get(0).getTitle());
-        assertEquals(false, result.get(0).isCompleted());
+        assertFalse(result.get(0).isCompleted());
 
         assertEquals(2L, result.get(1).getId());
         assertEquals("Apprendre Mockito", result.get(1).getTitle());
-        assertEquals(true, result.get(1).isCompleted());
+        assertTrue(result.get(1).isCompleted());
 
         verify(taskRepository).findAll();
     }

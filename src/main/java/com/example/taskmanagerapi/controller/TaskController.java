@@ -58,11 +58,7 @@ public class TaskController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Task not found",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorResponse.class)
-                    )
+                    description = "Task not found"
             )
     })
     @GetMapping("/{id}")
@@ -136,11 +132,7 @@ public class TaskController {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Task not found",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorResponse.class)
-                    )
+                    description = "Task not found"
             )
     })
     @PutMapping("/{id}")
@@ -162,6 +154,10 @@ public class TaskController {
         return ResponseEntity.notFound().build();
     }
 
+    @Operation(
+            summary = "Delete a task",
+            description = "Deletes an existing task."
+    )
     @ApiResponses({
             @ApiResponse(
                     responseCode = "204",

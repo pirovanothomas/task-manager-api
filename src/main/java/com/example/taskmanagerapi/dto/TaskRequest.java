@@ -28,13 +28,6 @@ public class TaskRequest {
     )
     private boolean completed;
 
-    @NotBlank(message = "Le titre est obligatoire")
-    @Size(
-            min = 3,
-            max = 100,
-            message = "Le titre doit contenir entre 3 et 100 caractères"
-    )
-
     public TaskRequest() {
     }
 

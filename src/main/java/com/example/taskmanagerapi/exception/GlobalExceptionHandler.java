@@ -18,10 +18,13 @@ public class GlobalExceptionHandler {
                 .filter(error -> "NotBlank".equals(error.getCode()))
                 .map(error -> error.getDefaultMessage())
                 .findFirst()
-                .orElse(
+                .orElseGet(() ->
                         ex.getBindingResult()
-                                .getFieldError()
-                                .getDefaultMessage()
+                                .getFieldErrors()
+                                .stream()
+                                .findFirst()
+                                .map(error -> error.getDefaultMessage())
+                                .orElse("Invalid request")
                 );
 
         ErrorResponse errorResponse = new ErrorResponse(
