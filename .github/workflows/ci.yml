@@ -43,6 +43,9 @@ jobs:
           java-version: '26'
           cache: maven
 
+      - name: Make Maven Wrapper executable
+        run: chmod +x mvnw
+
       - name: Check PostgreSQL
         run: |
           echo "DB_URL=$DB_URL"
